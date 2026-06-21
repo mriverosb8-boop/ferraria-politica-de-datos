@@ -2,9 +2,14 @@
   "name": "ferraria-politica-de-datos",
   "private": true,
   "scripts": {
-    "dev": "serve -l 3001"
+    "dev": "serve -l 3001",
+    "build": "node scripts/build-policy.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0"
   },
   "devDependencies": {
+    "dotenv": "^16.4.5",
     "serve": "^14.2.4"
   }
 }
