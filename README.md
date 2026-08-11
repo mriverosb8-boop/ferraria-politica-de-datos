@@ -1,20 +1,77 @@
-# Política de Tratamiento de Datos Personales
+# privacidad.ferraria.net
 
-Sitio estático de una sola página con la política de tratamiento de datos personales para el canal de atención por WhatsApp de los hoteles ibis.
+Sitio estático que sirve las páginas legales públicas de FerrarIA: la política de tratamiento de datos personales del canal de atención por WhatsApp, las condiciones del servicio y el procedimiento de eliminación de datos.
 
-## Contenido
+No usa framework. Es HTML con CSS plano embebido, más un script de build en Node que inyecta datos de Supabase.
 
-El archivo `index.html` contiene la página completa (HTML y CSS embebido). No hay dependencias ni paso de build.
+## Páginas del sitio
 
-Antes de publicar, reemplace los placeholders entre corchetes con los datos reales:
+| Ruta | Archivo | Cómo se produce |
+| --- | --- | --- |
+| `/` | `index.html` | Generada en cada build desde `index.template.html`. |
+| `/terminos` | `terminos.html` | Estática. Committeada. No pasa por el build. |
+| `/eliminacion-datos` | `eliminacion-datos.html` | Estática. Committeada. No pasa por el build. |
 
-- `[FECHA]`
-- `[RAZÓN SOCIAL]`
-- `[NIT]`
-- `[CORREO HABEAS DATA]`
+Las dos páginas estáticas llevan la fecha de última actualización **hardcodeada en el HTML**. Si su contenido cambia, hay que actualizar esa fecha a mano (aparece dos veces en cada archivo: en el párrafo `.updated` y en el footer).
 
-## Despliegue en Vercel
+## Flujo de build
 
-1. Conecte este repositorio a [Vercel](https://vercel.com).
-2. Vercel detectará el sitio estático automáticamente; no requiere framework ni comando de build.
-3. Tras el despliegue, la política quedará disponible en la URL asignada por Vercel.
+```
+npm run build
+```
+
+Ejecuta `scripts/build-policy.js`, que:
+
+1. Consulta la tabla `hotel_legal_entities` en Supabase, con filtro `is_published = true` y join embebido a `hotels(name)`. Columnas leídas: `legal_name`, `nit`, `habeas_data_email`.
+2. Ordena los resultados alfabéticamente por nombre del hotel (locale `es`). Si no hay filas publicadas, pinta una fila con el texto "Información en actualización".
+3. Reemplaza los marcadores `<!-- HOTELS_ROWS -->` y `<!-- FECHA -->` de `index.template.html` con las filas de la tabla y la fecha del build formateada en español colombiano.
+4. Escribe el resultado en `index.html`.
+
+El build **falla duro** (exit 1) si faltan las variables de entorno o si Supabase devuelve error. Nunca publica una página a medias: aborta el deploy.
+
+`index.html` está en `.gitignore` y se regenera en cada build. **Nunca se commitea ni se edita a mano** — todo cambio a la política va en `index.template.html`.
+
+## Variables de entorno
+
+| Variable | Uso |
+| --- | --- |
+| `SUPABASE_URL` | URL del proyecto Supabase. |
+| `SUPABASE_SERVICE_ROLE_KEY` | Service role key, usada solo para leer `hotel_legal_entities` en build. |
+
+En local van en `.env.local` (gitignoreado). En producción se configuran en Vercel → Project Settings → Environment Variables.
+
+El service role key se usa **exclusivamente en tiempo de build, en el servidor**. No se expone en el HTML generado ni llega nunca al navegador.
+
+## Redeploy automático
+
+Este repo es **pasivo**: no tiene endpoint receptor ni webhook propio.
+
+El redeploy lo dispara el repo `ferraria-dashboard`, desde `app/api/hotels/[hotelId]/legal-entity/route.ts`, con un POST fire-and-forget a un Deploy Hook de Vercel guardado en la variable `VERCEL_POLICY_DEPLOY_HOOK_URL`. Si la variable no está definida, el dashboard solo registra un aviso y continúa sin fallar.
+
+Consecuencia: al añadir o modificar un hotel desde el dashboard, este sitio se reconstruye solo y la tabla de responsables queda actualizada. Como el render es estático puro (sin SSR, sin ISR, sin fetch en el cliente), **el redeploy es la única forma de refrescar el contenido de la tabla**.
+
+## Mantenimiento del CSS
+
+Las tres páginas **duplican el bloque `<style>` a propósito**. No hay hoja de estilos compartida: así cada página es autocontenida y la política no depende de archivos externos.
+
+El precio es que el bloque debe mantenerse idéntico en los tres archivos. Para verificarlo:
+
+```
+for f in index.template.html terminos.html eliminacion-datos.html; do awk '/<style>/,/<\/style>/' $f | shasum; done
+```
+
+Si los tres hashes no coinciden, alguien editó una sola página. Al cambiar un estilo hay que replicarlo en los tres archivos.
+
+## Desarrollo local
+
+```
+npm run dev
+```
+
+Levanta el sitio en `http://localhost:3001`. Corre `npm run build` antes para tener `index.html` generado.
+
+Advertencia: las URLs sin extensión (`/terminos`, `/eliminacion-datos`) pueden devolver 404 en local con `serve`, pero resuelven correctamente en Vercel. Para probarlas en local, usa la ruta con extensión: `/terminos.html`.
+
+## Despliegue
+
+Configurado en `vercel.json`: build command `npm run build`, output directory la raíz del repo. Cada push a `main` y cada disparo del Deploy Hook regeneran el sitio.
