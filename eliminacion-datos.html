@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eliminación de Datos Personales</title>
+<link rel="icon" type="image/png" href="destello_logo_ferrarIA.png">
+<style>
+  :root {
+    /* === Branding FerrarIA — ajusta estos colores a tu paleta real === */
+    --brand: #1a3a5c;          /* color principal de marca (encabezados, acentos) */
+    --brand-accent: #c8a24b;   /* acento secundario (línea superior, detalles) */
+    --bg: #f5f6f8;             /* fondo de la página */
+    --card: #ffffff;           /* fondo del contenido */
+    --text: #1f2733;           /* texto principal */
+    --text-muted: #5c6470;
+    --border: #e2e6ea;         /* bordes de tabla y separadores */
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px 64px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    margin-top: 32px;
+    padding: 48px 48px 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+    border-top: 4px solid var(--brand-accent);
+  }
+  .brand-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .brand-mark {
+    width: 30px; height: 30px;
+    object-fit: contain;
+    display: block;
+  }
+  .brand-name {
+    font-weight: 600;
+    color: var(--brand);
+    font-size: 15px;
+    letter-spacing: 0.3px;
+  }
+  h1 {
+    color: var(--brand);
+    font-size: 30px;
+    line-height: 1.25;
+    margin: 0 0 6px;
+    font-weight: 700;
+  }
+  h2 {
+    color: var(--brand);
+    font-size: 20px;
+    margin: 36px 0 12px;
+    font-weight: 600;
+  }
+  .updated {
+    color: var(--text-muted);
+    font-style: italic;
+    margin: 0 0 28px;
+    font-size: 14px;
+  }
+  p { margin: 0 0 14px; }
+  ul, ol { margin: 0 0 14px; padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  a { color: var(--brand); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0 8px;
+    font-size: 15px;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 12px 14px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th {
+    background: #f0f3f6;
+    color: var(--brand);
+    font-weight: 600;
+  }
+  tr:nth-child(even) td { background: #fafbfc; }
+  footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .footer-brand { color: var(--brand); font-weight: 600; }
+  .footer-links { color: var(--text-muted); }
+  .footer-links a { color: var(--text-muted); text-decoration: none; }
+  .footer-links a:hover { text-decoration: underline; }
+  @media (max-width: 600px) {
+    .card { padding: 28px 20px; }
+    h1 { font-size: 24px; }
+    table, th, td { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+
+      <div class="brand-bar">
+        <img class="brand-mark" src="destello_logo_ferrarIA.png" alt="FerrarIA">
+        <span class="brand-name">FerrarIA</span>
+      </div>
+
+      <h1>Eliminación de Datos Personales</h1>
+      <p class="updated">Última actualización: 11 de agosto de 2026</p>
+
+      <h2>1. Su derecho a la eliminación</h2>
+      <p>Si usted se comunicó con un hotel a través de nuestro canal de atención por WhatsApp, tiene derecho a pedir que se eliminen sus datos personales. Este derecho está reconocido por la Ley 1581 de 2012 de Colombia y su ejercicio es gratuito.</p>
+
+      <h2>2. Cómo solicitar la eliminación</h2>
+      <p>El responsable de sus datos es el hotel con el que usted se comunicó. Para pedir la eliminación, siga estos pasos:</p>
+      <ol>
+        <li>Ubique el correo del hotel en la tabla de responsables de nuestra <a href="/">política de tratamiento de datos personales</a>.</li>
+        <li>Escríbale a ese correo desde cualquier dirección de correo electrónico.</li>
+        <li>Indique el número de WhatsApp desde el cual usted escribió al hotel. Es el dato que permite encontrar su información.</li>
+        <li>Manifieste de forma expresa que solicita la supresión de sus datos personales.</li>
+      </ol>
+      <p>Si prefiere, también puede escribir a <a href="mailto:matias.riveros@ferraria.net">matias.riveros@ferraria.net</a> con la misma información. FerrarIA canalizará su solicitud al hotel responsable.</p>
+
+      <h2>3. Plazo de respuesta</h2>
+      <p>Su solicitud será atendida dentro de los quince (15) días hábiles siguientes a su recepción, conforme a los plazos previstos en la Ley 1581 de 2012. Si el plazo debe prorrogarse, se le informará el motivo y la fecha en que se resolverá.</p>
+
+      <h2>4. Qué información se elimina</h2>
+      <p>Al aprobarse la solicitud se suprimen los datos asociados a su número de WhatsApp:</p>
+      <ul>
+        <li>El historial de mensajes intercambiados con el hotel.</li>
+        <li>Sus datos de contacto, incluido su número de teléfono y su nombre.</li>
+        <li>La información de la consulta, cotización o solicitud que usted haya compartido.</li>
+      </ul>
+
+      <h2>5. Cuándo no es posible eliminar todo</h2>
+      <p>En algunos casos el hotel debe conservar cierta información porque existe un deber legal o contractual que se lo impone. Por ejemplo, los soportes de una reserva efectivamente realizada, que deben mantenerse por obligaciones contables, tributarias o de defensa jurídica.</p>
+      <p>En esos casos se le informará qué información se conserva y por qué motivo. La información que no esté cubierta por ese deber sí se elimina.</p>
+
+      <h2>6. Si no recibe respuesta</h2>
+      <p>Si su solicitud no es atendida o considera que fue resuelta de manera indebida, puede presentar una queja ante la Superintendencia de Industria y Comercio (SIC), autoridad de protección de datos personales en Colombia.</p>
+
+      <footer>
+        <span class="footer-brand">FerrarIA — 11 de agosto de 2026</span>
+        <span>Servicio de atención prestado mediante la plataforma tecnológica de FerrarIA.</span>
+        <span class="footer-links"><a href="/">Política de privacidad</a> · <a href="/terminos">Condiciones del servicio</a> · <a href="/eliminacion-datos">Eliminación de datos</a></span>
+      </footer>
+
+    </div>
+  </div>
+</body>
+</html>
