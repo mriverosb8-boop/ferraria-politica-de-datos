@@ -52,15 +52,11 @@ Consecuencia: al añadir o modificar un hotel desde el dashboard, este sitio se 
 
 ## Mantenimiento del CSS
 
-Las tres páginas **duplican el bloque `<style>` a propósito**. No hay hoja de estilos compartida: así cada página es autocontenida y la política no depende de archivos externos.
+Todos los estilos del sitio viven en **`styles.css`** en la raíz. Es la única fuente de verdad: cada página lo enlaza con `<link rel="stylesheet" href="/styles.css">` y ninguna lleva estilos embebidos.
 
-El precio es que el bloque debe mantenerse idéntico en los tres archivos. Para verificarlo:
+La ruta del `<link>` es **absoluta** a propósito. Las páginas por hotel se sirven desde un subdirectorio (`/politica/<slug>`), y una ruta relativa se rompería allí.
 
-```
-for f in index.template.html terminos.html eliminacion-datos.html; do awk '/<style>/,/<\/style>/' $f | shasum; done
-```
-
-Si los tres hashes no coinciden, alguien editó una sola página. Al cambiar un estilo hay que replicarlo en los tres archivos.
+Al cambiar un estilo se edita un solo archivo y el cambio aplica a todas las páginas, incluidas las generadas.
 
 ## Desarrollo local
 
@@ -70,7 +66,7 @@ npm run dev
 
 Levanta el sitio en `http://localhost:3001`. Corre `npm run build` antes para tener `index.html` generado.
 
-Advertencia: las URLs sin extensión (`/terminos`, `/eliminacion-datos`) pueden devolver 404 en local con `serve`, pero resuelven correctamente en Vercel. Para probarlas en local, usa la ruta con extensión: `/terminos.html`.
+Las URLs sin extensión (`/terminos`, `/eliminacion-datos`) funcionan tanto en local como en producción: `serve` las resuelve por defecto, y en Vercel las habilita `"cleanUrls": true` en `vercel.json`.
 
 ## Despliegue
 
