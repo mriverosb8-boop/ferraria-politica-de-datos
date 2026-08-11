@@ -70,24 +70,6 @@ p { margin: 0 0 14px; }
 ul, ol { margin: 0 0 14px; padding-left: 22px; }
 li { margin-bottom: 6px; }
 a { color: var(--brand); }
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 16px 0 8px;
-  font-size: 15px;
-}
-th, td {
-  border: 1px solid var(--border);
-  padding: 12px 14px;
-  text-align: left;
-  vertical-align: top;
-}
-th {
-  background: #f0f3f6;
-  color: var(--brand);
-  font-weight: 600;
-}
-tr:nth-child(even) td { background: #fafbfc; }
 .hotel-subtitle {
   color: var(--brand);
   font-size: 19px;
@@ -134,7 +116,6 @@ footer {
 @media (max-width: 600px) {
   .card { padding: 28px 20px; }
   h1 { font-size: 24px; }
-  table, th, td { font-size: 14px; }
   .hotel-subtitle { font-size: 17px; }
   .responsable { padding: 18px 18px; }
 }
